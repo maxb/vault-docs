@@ -40,7 +40,7 @@ which versions you require, but as stated, it is an unsupported usage.
 The `api` package mostly provides Go client code for calling the Vault HTTP API.
 
 It does also contain some code which is only used when writing Vault plugins,
-which really ought to be in the `sdk` module.
+which really ought to be in the `sdk` module - this is in `plugin_helpers.go`.
 
 It claims to provide a stable API and for the most part succeeds.
 
@@ -153,3 +153,110 @@ increment to `sdk` version depended upon)
 ### api/v1.0.3, api/v1.0.2, api/v1.0.1
 
 Earlier releases during the Vault 1.2 development cycle.
+
+## `github.com/hashicorp/vault/api/auth/*`
+
+In addition to the main `api` module, there are also separate modules
+containing the client side code necessary to authenticate with particular auth
+methods. Each is a separate module so that applications that do not need them
+all, do not need to take a dependency on specific, sometimes large, client
+libraries for particular products or cloud providers.
+
+There are 7 of them:
+- `approle`
+- `aws`
+- `azure`
+- `gcp`
+- `kubernetes`
+- `ldap`
+- `userpass
+
+The version numbers of these 7 libraries are mostly but not always managed in
+sync with each other.
+
+### api/auth/*/v0.4.1
+
+Increment `api` dependency to v1.9.2.
+
+Add copyright headers to source files.
+
+### api/auth/*/v0.4.0
+
+Increment `api` dependency to v1.9.0.
+
+### api/auth/*/v0.3.0
+
+Increment `api` dependency to v1.8.0.
+
+Reformat source code.
+
+### api/auth/*/v0.2.0
+
+Increment `api` dependency to v1.7.2.
+
+Propagate context correctly.
+
+`aws`: Support for RSA-2048 identity documents.
+
+`azure`: Remove spurious debug print.
+
+### api/auth/approle/v0.1.1
+
+Respect WithWrappingToken for all secret IDs
+
+### api/auth/*/v0.1.0
+
+Initial version. (Of all 7 libraries, but `v0.1.0` points to different Git commits for different libraries.)
+
+## `github.com/hashicorp/vault/sdk`
+
+The code in the `sdk` module is intended only to be used within Vault plugins.
+
+Unlike the `api` libraries, the `sdk` package deliberately maintains a `v0.x.x`
+version number forever, and explicitly documents that it does *NOT* provide API
+stability across versions - see
+https://github.com/hashicorp/vault/blob/main/sdk/README.md. It frequently
+exercises its reserved right to change APIs, though most of the time in small
+ways that will not bother most plugin authors.
+
+Generally, a Vault plugin author should just use the latest available SDK 
+version at the time of writing their plugin, and pull in updates when available.
+
+A new SDK version is usually tagged *shortly before* the creation of a new 
+Vault release branch. This means the tagged SDK will contain code similar to,
+but a bit older than, the embedded SDK code in the subsequent Vault v1.x.0 
+release. These SDK releases are identified with a Vault version in the table 
+below.
+
+SDK versions may also be released intermittently between Vault releases, if 
+it seems useful to do so, or rarely, from Vault release branches.
+
+The notation 'main (detached)' means a release tag that is on no branch, or 
+a feature branch, containing just one small change - generally a version 
+increment - off the main branch.
+
+| SDK     | Vault | Branch          | Notes                                                        |
+|---------|-------|-----------------|--------------------------------------------------------------|
+| v0.9.1  | v1.14 | main            |                                                              |
+| v0.9.0  |       | main            |                                                              |
+| v0.8.1  |       | release/1.13.x  |                                                              |
+| v0.8.0  | v1.13 | main            | `sdk` now depends on `api`, rather than the other way around |
+| v0.7.0  |       | main            |                                                              |
+| v0.6.2  |       | main            |                                                              |
+| v0.6.1  |       | main            |                                                              |
+| v0.6.0  | v1.12 | main            |                                                              |
+| v0.5.3  |       | main            |                                                              |
+| v0.5.2  |       | release/1.11.x  | Created from branch divergent to v0.5.1 and v0.5.3 !         |
+| v0.5.1  |       | main            |                                                              |
+| v0.5.0  | v1.11 | main            |                                                              |
+| v0.4.1  | v1.10 | main            |                                                              |
+| v0.4.0  |       | main (detached) |                                                              |
+| v0.3.0  | v1.9  | main            |                                                              |
+| v0.2.1  | v1.8  | main            |                                                              |
+| v0.2.0  |       | release/1.7.x   |                                                              |
+| v0.1.13 | v1.2  | main            |                                                              |
+| v0.1.12 |       | main            |                                                              |
+| v0.1.11 |       | main            |                                                              |
+| v0.1.10 |       | main            |                                                              |
+| v0.1.9  |       | main            |                                                              |
+| v0.1.8  |       | main            |                                                              |
