@@ -31,54 +31,54 @@ It does also contain some code which is only used when writing Vault plugins, wh
 
 It claims to provide a stable API and for the most part succeeds.
 
-## api/v1.9.2
+### api/v1.9.2
 
 * Corresponds to Vault 1.14.0
 
-## api/v1.9.1
+### api/v1.9.1
 
 * Corresponds to a point during Vault 1.14 development
 
 * Very minor incompatible change:
   - OutputPolicyError: old is comparable, new is not
 
-## api/v1.9.0
+### api/v1.9.0
 
 * Corresponds to very shortly before Vault 1.13.0 (the only missed change is a version increase of several `golang.org/x/...` libraries, so not really consequential)
 
 * This is the first version of the `api` to not depend on the `sdk`, resulting a substantial reduction in unwarranted dependencies.
 
-## api/v1.8.3
+### api/v1.8.3
 
 * Corresponds to a point during Vault 1.13 development
 
 * Very minor incompatible change:
   - OutputPolicyError: old is comparable, new is not
 
-## api/v1.8.2
+### api/v1.8.2
 
 * Corresponds to a point during Vault 1.13 development
 
-## api/v1.8.1
+### api/v1.8.1
 
 * Corresponds to a point during Vault 1.13 development
 
 * Incompatible change:
   - MountInput.PluginVersion: removed (but it was only added in v1.8.0)
 
-## api/v1.8.0
+### api/v1.8.0
 
 * Corresponds to shortly before Vault 1.12.0 (missed changes relate to new plugin versioning support)
 
-* Extremely minor i ncompatible change:
+* Extremely minor incompatible change:
   - PluginMetadataModeEnv: changed from var to const
   - PluginUnwrapTokenEnv: changed from var to const
 
-## api/v1.7.2, api/v1.7.1, api/v1.7.0
+### api/v1.7.2, api/v1.7.1, api/v1.7.0
 
 * Correspond to points during Vault 1.12 development
 
-## api/v1.6.0
+### api/v1.6.0
 
 * Corresponds to a point late in Vault 1.11 development
 
@@ -88,31 +88,31 @@ It claims to provide a stable API and for the most part succeeds.
   - AutopilotServer.Meta: removed
   - TLSConfig: old is comparable, new is not
 
-## api/v1.5.0
+### api/v1.5.0
 
 * Corresponds to a point during Vault 1.11 development
 
-## api/v1.4.1
+### api/v1.4.1
 
 * Corresponds to Vault 1.10.0
 
-## api/v1.4.0, api/v1.3.1
+### api/v1.4.0, api/v1.3.1
 
 * Correspond to points during Vault 1.10 development
 
-## api/v1.3.0
+### api/v1.3.0
 
 * Corresponds to Vault 1.9.0
 
-## api/v1.2.0
+### api/v1.2.0
 
 * Corresponds to a point during Vault 1.9 development
 
-## api/v1.1.1
+### api/v1.1.1
 
 * Corresponds to very shortly before Vault 1.8.0 (only missed change is a `go mod tidy`)
 
-## api/v1.1.0
+### api/v1.1.0
 
 * Corresponds to Vault 1.7.0
 
@@ -126,10 +126,10 @@ It claims to provide a stable API and for the most part succeeds.
   - CORSResponse.AllowedOrigins: changed from string to []string
   - CORSResponse: old is comparable, new is not
 
-## api/v1.0.4
+### api/v1.0.4
 
 * Corresponds to very shortly before Vault 1.2.0 (only missed change is an increment to `sdk` version depended upon)
 
-## api/v1.0.3, api/v1.0.2, api/v1.0.1
+### api/v1.0.3, api/v1.0.2, api/v1.0.1
 
 * Earlier releases during the Vault 1.2 development cycle.
