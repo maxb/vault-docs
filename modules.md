@@ -232,28 +232,28 @@ The notation 'main (detached)' means a release tag that is on no branch, or
 a feature branch, containing just one small change - generally a version
 increment - off the main branch.
 
-| SDK     | Vault | Branch          | Notes                                                        |
-|---------|-------|-----------------|--------------------------------------------------------------|
-| v0.9.1  | v1.14 | main            |                                                              |
-| v0.9.0  |       | main            |                                                              |
-| v0.8.1  |       | release/1.13.x  |                                                              |
-| v0.8.0  | v1.13 | main            | `sdk` now depends on `api`, rather than the other way around |
-| v0.7.0  |       | main            |                                                              |
-| v0.6.2  |       | main            |                                                              |
-| v0.6.1  |       | main            |                                                              |
-| v0.6.0  | v1.12 | main            |                                                              |
-| v0.5.3  |       | main            |                                                              |
-| v0.5.2  |       | release/1.11.x  | Created from branch divergent to v0.5.1 and v0.5.3 !         |
-| v0.5.1  |       | main            |                                                              |
-| v0.5.0  | v1.11 | main            |                                                              |
-| v0.4.1  | v1.10 | main            |                                                              |
-| v0.4.0  |       | main (detached) |                                                              |
-| v0.3.0  | v1.9  | main            |                                                              |
-| v0.2.1  | v1.8  | main            |                                                              |
-| v0.2.0  |       | release/1.7.x   |                                                              |
-| v0.1.13 | v1.2  | main            |                                                              |
-| v0.1.12 |       | main            |                                                              |
-| v0.1.11 |       | main            |                                                              |
-| v0.1.10 |       | main            |                                                              |
-| v0.1.9  |       | main            |                                                              |
-| v0.1.8  |       | main            |                                                              |
+| SDK     | Vault | Branch          | Notes                                                                                  |
+|---------|-------|-----------------|----------------------------------------------------------------------------------------|
+| v0.9.1  | v1.14 | main            |                                                                                        |
+| v0.9.0  |       | main            |                                                                                        |
+| v0.8.1  |       | release/1.13.x  |                                                                                        |
+| v0.8.0  | v1.13 | main            | `sdk` now depends on `api`, rather than the other way around                           |
+| v0.7.0  |       | main            |                                                                                        |
+| v0.6.2  |       | main            |                                                                                        |
+| v0.6.1  |       | main            |                                                                                        |
+| v0.6.0  | v1.12 | main            | Support for go-plugin AutoMTLS, fixing the dependency on `api_addr` for plugin startup |
+| v0.5.3  |       | main            |                                                                                        |
+| v0.5.2  |       | release/1.11.x  | Created from branch divergent to v0.5.1 and v0.5.3 !                                   |
+| v0.5.1  |       | main            |                                                                                        |
+| v0.5.0  | v1.11 | main            |                                                                                        |
+| v0.4.1  | v1.10 | main            |                                                                                        |
+| v0.4.0  |       | main (detached) |                                                                                        |
+| v0.3.0  | v1.9  | main            |                                                                                        |
+| v0.2.1  | v1.8  | main            |                                                                                        |
+| v0.2.0  |       | release/1.7.x   |                                                                                        |
+| v0.1.13 | v1.2  | main            |                                                                                        |
+| v0.1.12 |       | main            |                                                                                        |
+| v0.1.11 |       | main            |                                                                                        |
+| v0.1.10 |       | main            |                                                                                        |
+| v0.1.9  |       | main            |                                                                                        |
+| v0.1.8  |       | main            |                                                                                        |
