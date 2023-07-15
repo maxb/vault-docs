@@ -21,8 +21,8 @@ The above-linked documentation also states:
   also makes it theoretically possible to import Vault as a dependency into other
   projects. Some other projects have made a practice of doing so in order to take
   advantage of testing tooling that was developed for testing Vault itself. This
-  is not, and has never been, a supported way to use the Vault project. We aren't 
-  likely to fix bugs relating to failure to import `github.com/hashicorp/vault` 
+  is not, and has never been, a supported way to use the Vault project. We aren't
+  likely to fix bugs relating to failure to import `github.com/hashicorp/vault`
   into your project.
 
 The reason that people often run into difficulties when doing so, is that the
@@ -169,44 +169,40 @@ There are 7 of them:
 - `gcp`
 - `kubernetes`
 - `ldap`
-- `userpass
+- `userpass`
 
 The version numbers of these 7 libraries are mostly but not always managed in
 sync with each other.
 
-### api/auth/*/v0.4.1
+| api/auth/ libraries                | Version | `api` version | Vault timeline        | Contents                     |
+|------------------------------------|---------|---------------|-----------------------|------------------------------|
+| *                                  | v0.4.1  | v1.9.2        | v1.14 branch point    | No material changes          |
+| *                                  | v0.4.0  | v1.9.0        | v1.13 branch point    | No material changes          |
+| *                                  | v0.3.0  | v1.8.0        | v1.12 branch point    | No material changes          |
+| *                                  | v0.2.0  | v1.7.2        | v1.12 mid-development | Some fixes                   |
+| ldap                               | v0.1.0  | v1.3.1        | v1.10 mid-development | Initial version (2022-02-04) |
+| approle                            | v0.1.1  | v1.3.0        | v1.10 mid-development | Some fixes                   |
+| azure, gcp                         | v0.1.0  | v1.3.0        | v1.10 mid-development | Initial version (2021-11-12) |
+| approle, aws, kubernetes, userpass | v0.1.0  | v1.3.0        | v1.10 mid-development | Initial version (2021-11-09) |
 
-Increment `api` dependency to v1.9.2.
+Each `api/auth/` library depends on the base `api` library. The versions are
+unimportant, as thanks to how Go modules work, you can combine any `api/auth/`
+library with any (compatible) newer version of `api`, without needing the
+`api/auth/` library to be re-released. Even so, the `api/auth/` libraries do
+get re-released anyway, even just to increment the default version of `api`
+that they suggest - those strictly unnecessary releases are the ones noted as
+"No material changes" above.
 
-Add copyright headers to source files.
+To give some context to the version numbers, the point in the Vault development
+timeline at which each `api/auth/` release was made, is also included. These
+are described as:
 
-### api/auth/*/v0.4.0
+* "branch point" - the `api/auth/` release was made as part of a cluster of
+  version number incrementing, just prior to creating the release branch for
+  a new release series of Vault itself.
 
-Increment `api` dependency to v1.9.0.
-
-### api/auth/*/v0.3.0
-
-Increment `api` dependency to v1.8.0.
-
-Reformat source code.
-
-### api/auth/*/v0.2.0
-
-Increment `api` dependency to v1.7.2.
-
-Propagate context correctly.
-
-`aws`: Support for RSA-2048 identity documents.
-
-`azure`: Remove spurious debug print.
-
-### api/auth/approle/v0.1.1
-
-Respect WithWrappingToken for all secret IDs
-
-### api/auth/*/v0.1.0
-
-Initial version. (Of all 7 libraries, but `v0.1.0` points to different Git commits for different libraries.)
+* "mid-development" - the `api/auth/` release was made for its own reasons,
+  outside the cadence of releases of Vault itself.
 
 ## `github.com/hashicorp/vault/sdk`
 
@@ -219,20 +215,21 @@ https://github.com/hashicorp/vault/blob/main/sdk/README.md. It frequently
 exercises its reserved right to change APIs, though most of the time in small
 ways that will not bother most plugin authors.
 
-Generally, a Vault plugin author should just use the latest available SDK 
-version at the time of writing their plugin, and pull in updates when available.
+Generally, a Vault plugin author should just use the latest available SDK
+version at the time of writing their plugin, and pull in updates when
+available.
 
-A new SDK version is usually tagged *shortly before* the creation of a new 
+A new SDK version is usually tagged *shortly before* the creation of a new
 Vault release branch. This means the tagged SDK will contain code similar to,
-but a bit older than, the embedded SDK code in the subsequent Vault v1.x.0 
-release. These SDK releases are identified with a Vault version in the table 
+but a bit older than, the embedded SDK code in the subsequent Vault v1.x.0
+release. These SDK releases are identified with a Vault version in the table
 below.
 
-SDK versions may also be released intermittently between Vault releases, if 
-it seems useful to do so, or rarely, from Vault release branches.
+SDK versions may also be released intermittently between Vault releases, if it
+seems useful to do so, or rarely, from Vault release branches.
 
-The notation 'main (detached)' means a release tag that is on no branch, or 
-a feature branch, containing just one small change - generally a version 
+The notation 'main (detached)' means a release tag that is on no branch, or
+a feature branch, containing just one small change - generally a version
 increment - off the main branch.
 
 | SDK     | Vault | Branch          | Notes                                                        |
