@@ -35,6 +35,35 @@ building Vault itself - only when making an unsupported dependency reference to
 at all times. It is possible to work around this with some careful selection of
 which versions you require, but as stated, it is an unsupported usage.
 
+## Concepts in the tables below
+
+### "Vault timeline" column
+
+The libraries have their own version numbers. To give context to these, the
+point in the Vault development timeline at which library release took place is
+included.
+
+A new library version is usually tagged *shortly before* the creation of a new
+Vault release branch. This means the tagged library will contain code similar
+to, but **not necessarily the same as**, the embedded SDK code in the subsequent
+Vault v1.x.0 release (as fixes are made by backporting to the release branch,
+before the release occurs). These are described as "v1.x branch point".
+
+Library versions may also be released intermittently between Vault releases, if
+it seems useful to do so. These are described as "v1.x mid-development".
+
+Rarely, library versions may be released from Vault release branches - typically
+done when the release made at the branch point needs some minor fixes discovered
+after branching. These are described as "v1.x release branch".
+
+### "Branch" column
+
+The Git branch from which the library release was made.
+
+The notation "(detached)" is added to denote a release tag that is on no branch,
+or a feature branch, containing just one small change - generally a version
+increment - off a major branch.
+
 ## `github.com/hashicorp/vault/api`
 
 The `api` package mostly provides Go client code for calling the Vault HTTP API.
@@ -44,115 +73,62 @@ which really ought to be in the `sdk` module - this is in `plugin_helpers.go`.
 
 It claims to provide a stable API and for the most part succeeds.
 
-### api/v1.9.2
+| API    | Vault timeline        | Branch          | Notes                                                         |
+|--------|-----------------------|-----------------|---------------------------------------------------------------|
+| v1.9.2 | v1.14 branch point    | main            |                                                               |
+| v1.9.1 | v1.14 mid-development | main            |                                                               |
+| v1.9.0 | v1.13 branch point    | main            | No longer depends on `sdk` - much reduce dependency footprint |
+| v1.8.3 | v1.13 mid-development | main            |                                                               |
+| v1.8.2 | v1.13 mid-development | main            |                                                               |
+| v1.8.1 | v1.13 mid-development | main            |                                                               |
+| v1.8.0 | v1.12 branch point    | main            |                                                               |
+| v1.7.2 | v1.12 mid-development | main            |                                                               |
+| v1.7.1 | v1.12 mid-development | main            |                                                               |
+| v1.7.0 | v1.12 mid-development | main            |                                                               |
+| v1.6.0 | v1.11 branch point    | main            |                                                               |
+| v1.5.0 | v1.11 mid-development | main            |                                                               |
+| v1.4.1 | v1.10 branch point    | main (detached) |                                                               |
+| v1.4.0 | v1.10 mid-development | main (detached) |                                                               |
+| v1.3.1 | v1.10 mid-development | main            |                                                               |
+| v1.3.0 | v1.9 branch point     | main (detached) |                                                               |
+| v1.2.0 | v1.9 mid-development  | main            |                                                               |
+| v1.1.1 | v1.8 branch point     | main            |                                                               |
+| v1.1.0 | v1.7 release branch   | release/1.7.x   |                                                               |
+| v1.0.4 | v1.2 mid-development  | main            |                                                               |
+| v1.0.3 | v1.2 mid-development  | main            |                                                               |
+| v1.0.2 | v1.2 mid-development  | main            |                                                               |
+| v1.0.1 | v1.2 mid-development  | main            |                                                               |
 
-Corresponds to Vault 1.14.0
+### Incompatibilities introduced by version, as detected by Go apidiff
 
-### api/v1.9.1
+Most of these are truly minor, and unlikely to trouble consumers.
 
-Corresponds to a point during Vault 1.14 development
-
-Very minor incompatible change:
+#### api/v1.9.1
 - OutputPolicyError: old is comparable, new is not
-
-### api/v1.9.0
-
-Corresponds to very shortly before Vault 1.13.0 (the only missed change is
-a version increase of several `golang.org/x/...` libraries, so not really
-consequential)
-
-This is the first version of the `api` to not depend on the `sdk`, resulting
-a substantial reduction in unwarranted dependencies.
 
 ### api/v1.8.3
-
-Corresponds to a point during Vault 1.13 development
-
-Very minor incompatible change:
-- OutputPolicyError: old is comparable, new is not
-
-### api/v1.8.2
-
-Corresponds to a point during Vault 1.13 development
+- SealStatusResponse: old is comparable, new is not
 
 ### api/v1.8.1
-
-Corresponds to a point during Vault 1.13 development
-
-Incompatible change:
 - MountInput.PluginVersion: removed (but it was only added in v1.8.0)
 
 ### api/v1.8.0
-
-Corresponds to shortly before Vault 1.12.0 (missed changes relate to new plugin
-versioning support)
-
-Extremely minor incompatible change:
 - PluginMetadataModeEnv: changed from var to const
 - PluginUnwrapTokenEnv: changed from var to const
 
-### api/v1.7.2, api/v1.7.1, api/v1.7.0
-
-Correspond to points during Vault 1.12 development
-
 ### api/v1.6.0
-
-Corresponds to a point late in Vault 1.11 development
-
-Mostly minor incompatible changes:
 - (*OutputStringError).CurlString: changed from func() string to func() (string, error)
 - (*Sys).Monitor: changed from func(context.Context, string) (chan string, error) to func(context.Context, string, string) (chan string, error)
 - AutopilotServer.Meta: removed
 - TLSConfig: old is comparable, new is not
 
-### api/v1.5.0
-
-Corresponds to a point during Vault 1.11 development
-
-### api/v1.4.1
-
-Corresponds to Vault 1.10.0
-
-### api/v1.4.0, api/v1.3.1
-
-Correspond to points during Vault 1.10 development
-
-### api/v1.3.0
-
-Corresponds to Vault 1.9.0
-
-### api/v1.2.0
-
-Corresponds to a point during Vault 1.9 development
-
-### api/v1.1.1
-
-Corresponds to very shortly before Vault 1.8.0 (only missed change is a `go mod
-tidy`)
-
 ### api/v1.1.0
-
-Corresponds to Vault 1.7.0
-
-Unusually, this `api` release was made from the `release/1.7.x` branch, instead
-of the `main` branch.
-
-Incompatible changes:
 - (*Sys).ConfigureCORS: changed from func(*CORSRequest) (*CORSResponse, error) to func(*CORSRequest) error
 - (*Sys).DisableCORS: changed from func() (*CORSResponse, error) to func() error
 - CORSRequest.AllowedOrigins: changed from string to []string
 - CORSRequest: old is comparable, new is not
 - CORSResponse.AllowedOrigins: changed from string to []string
 - CORSResponse: old is comparable, new is not
-
-### api/v1.0.4
-
-Corresponds to very shortly before Vault 1.2.0 (only missed change is an
-increment to `sdk` version depended upon)
-
-### api/v1.0.3, api/v1.0.2, api/v1.0.1
-
-Earlier releases during the Vault 1.2 development cycle.
 
 ## `github.com/hashicorp/vault/api/auth/*`
 
@@ -193,17 +169,6 @@ get re-released anyway, even just to increment the default version of `api`
 that they suggest - those strictly unnecessary releases are the ones noted as
 "No material changes" above.
 
-To give some context to the version numbers, the point in the Vault development
-timeline at which each `api/auth/` release was made, is also included. These
-are described as:
-
-* "branch point" - the `api/auth/` release was made as part of a cluster of
-  version number incrementing, just prior to creating the release branch for
-  a new release series of Vault itself.
-
-* "mid-development" - the `api/auth/` release was made for its own reasons,
-  outside the cadence of releases of Vault itself.
-
 ## `github.com/hashicorp/vault/sdk`
 
 The code in the `sdk` module is intended only to be used within Vault plugins.
@@ -219,41 +184,28 @@ Generally, a Vault plugin author should just use the latest available SDK
 version at the time of writing their plugin, and pull in updates when
 available.
 
-A new SDK version is usually tagged *shortly before* the creation of a new
-Vault release branch. This means the tagged SDK will contain code similar to,
-but a bit older than, the embedded SDK code in the subsequent Vault v1.x.0
-release. These SDK releases are identified with a Vault version in the table
-below.
-
-SDK versions may also be released intermittently between Vault releases, if it
-seems useful to do so, or rarely, from Vault release branches.
-
-The notation 'main (detached)' means a release tag that is on no branch, or
-a feature branch, containing just one small change - generally a version
-increment - off the main branch.
-
-| SDK     | Vault | Branch          | Notes                                                                                  |
-|---------|-------|-----------------|----------------------------------------------------------------------------------------|
-| v0.9.1  | v1.14 | main            |                                                                                        |
-| v0.9.0  |       | main            |                                                                                        |
-| v0.8.1  |       | release/1.13.x  |                                                                                        |
-| v0.8.0  | v1.13 | main            | `sdk` now depends on `api`, rather than the other way around                           |
-| v0.7.0  |       | main            |                                                                                        |
-| v0.6.2  |       | main            |                                                                                        |
-| v0.6.1  |       | main            |                                                                                        |
-| v0.6.0  | v1.12 | main            | Support for go-plugin AutoMTLS, fixing the dependency on `api_addr` for plugin startup |
-| v0.5.3  |       | main            |                                                                                        |
-| v0.5.2  |       | release/1.11.x  | Created from branch divergent to v0.5.1 and v0.5.3 !                                   |
-| v0.5.1  |       | main            |                                                                                        |
-| v0.5.0  | v1.11 | main            |                                                                                        |
-| v0.4.1  | v1.10 | main            |                                                                                        |
-| v0.4.0  |       | main (detached) |                                                                                        |
-| v0.3.0  | v1.9  | main            |                                                                                        |
-| v0.2.1  | v1.8  | main            |                                                                                        |
-| v0.2.0  |       | release/1.7.x   |                                                                                        |
-| v0.1.13 | v1.2  | main            |                                                                                        |
-| v0.1.12 |       | main            |                                                                                        |
-| v0.1.11 |       | main            |                                                                                        |
-| v0.1.10 |       | main            |                                                                                        |
-| v0.1.9  |       | main            |                                                                                        |
-| v0.1.8  |       | main            |                                                                                        |
+| SDK     | Vault timeline        | Branch          | Notes                                                                                  |
+|---------|-----------------------|-----------------|----------------------------------------------------------------------------------------|
+| v0.9.1  | v1.14 branch point    | main            |                                                                                        |
+| v0.9.0  | v1.14 mid-development | main            |                                                                                        |
+| v0.8.1  | v1.13 release branch  | release/1.13.x  |                                                                                        |
+| v0.8.0  | v1.13 branch point    | main            | `sdk` now depends on `api`, rather than the other way around                           |
+| v0.7.0  | v1.13 mid-development | main            |                                                                                        |
+| v0.6.2  | v1.13 mid-development | main            |                                                                                        |
+| v0.6.1  | v1.13 mid-development | main            |                                                                                        |
+| v0.6.0  | v1.12 branch point    | main            | Support for go-plugin AutoMTLS, fixing the dependency on `api_addr` for plugin startup |
+| v0.5.3  | v1.12 mid-development | main            |                                                                                        |
+| v0.5.2  | v1.11 release branch  | release/1.11.x  | Created from branch divergent to v0.5.1 and v0.5.3 !                                   |
+| v0.5.1  | v1.12 mid-development | main            |                                                                                        |
+| v0.5.0  | v1.11 branch point    | main            |                                                                                        |
+| v0.4.1  | v1.10 branch point    | main            |                                                                                        |
+| v0.4.0  | v1.10 mid-development | main (detached) |                                                                                        |
+| v0.3.0  | v1.9 branch point     | main            |                                                                                        |
+| v0.2.1  | v1.8 branch point     | main            |                                                                                        |
+| v0.2.0  | v1.7 release branch   | release/1.7.x   |                                                                                        |
+| v0.1.13 | v1.2 mid-development  | main            |                                                                                        |
+| v0.1.12 | v1.2 mid-development  | main            |                                                                                        |
+| v0.1.11 | v1.2 mid-development  | main            |                                                                                        |
+| v0.1.10 | v1.2 mid-development  | main            |                                                                                        |
+| v0.1.9  | v1.2 mid-development  | main            |                                                                                        |
+| v0.1.8  | v1.2 mid-development  | main            |                                                                                        |
