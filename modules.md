@@ -106,23 +106,23 @@ Most of these are truly minor, and unlikely to trouble consumers.
 #### api/v1.9.1
 - OutputPolicyError: old is comparable, new is not
 
-### api/v1.8.3
+#### api/v1.8.3
 - SealStatusResponse: old is comparable, new is not
 
-### api/v1.8.1
+#### api/v1.8.1
 - MountInput.PluginVersion: removed (but it was only added in v1.8.0)
 
-### api/v1.8.0
+#### api/v1.8.0
 - PluginMetadataModeEnv: changed from var to const
 - PluginUnwrapTokenEnv: changed from var to const
 
-### api/v1.6.0
+#### api/v1.6.0
 - (*OutputStringError).CurlString: changed from func() string to func() (string, error)
 - (*Sys).Monitor: changed from func(context.Context, string) (chan string, error) to func(context.Context, string, string) (chan string, error)
 - AutopilotServer.Meta: removed
 - TLSConfig: old is comparable, new is not
 
-### api/v1.1.0
+#### api/v1.1.0
 - (*Sys).ConfigureCORS: changed from func(*CORSRequest) (*CORSResponse, error) to func(*CORSRequest) error
 - (*Sys).DisableCORS: changed from func() (*CORSResponse, error) to func() error
 - CORSRequest.AllowedOrigins: changed from string to []string
