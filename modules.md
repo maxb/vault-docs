@@ -186,6 +186,7 @@ available.
 
 | SDK     | Vault timeline        | Branch          | Notes                                                                                  |
 |---------|-----------------------|-----------------|----------------------------------------------------------------------------------------|
+| v0.9.2  | v1.15 mid-development | main            |                                                                                        |
 | v0.9.1  | v1.14 branch point    | main            |                                                                                        |
 | v0.9.0  | v1.14 mid-development | main            |                                                                                        |
 | v0.8.1  | v1.13 release branch  | release/1.13.x  |                                                                                        |
