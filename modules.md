@@ -12,29 +12,6 @@ their own version numbers, distinct from Vault itself. The main purpose of this
 document is to record what I have deduced from Git history, so that it may be
 helpful to others, and I don't have to re-deduce it in the future.
 
-The above-linked documentation also states:
-
-> Note that this repository also contains Vault (the product), and as with most Go
-  projects, Vault uses Go modules to manage its dependencies. The mechanism to do
-  that is the [go.mod](https://github.com/hashicorp/vault/blob/main/go.mod) file.
-  As it happens, the presence of that file
-  also makes it theoretically possible to import Vault as a dependency into other
-  projects. Some other projects have made a practice of doing so in order to take
-  advantage of testing tooling that was developed for testing Vault itself. This
-  is not, and has never been, a supported way to use the Vault project. We aren't
-  likely to fix bugs relating to failure to import `github.com/hashicorp/vault`
-  into your project.
-
-The reason that people often run into difficulties when doing so, is that the
-main Vault repository makes use of `go.mod` `replace` directives to ensure that
-Vault itself always uses the libraries at the version present within the Git
-repository at the same commit, not their released versions. The actual versions
-of these libraries stated in Vault's top-level `go.mod` file do not apply when
-building Vault itself - only when making an unsupported dependency reference to
-`github.com/hashicorp/vault` - and as a result are not kept technically correct
-at all times. It is possible to work around this with some careful selection of
-which versions you require, but as stated, it is an unsupported usage.
-
 ## Concepts in the tables below
 
 ### "Vault timeline" column
@@ -210,3 +187,57 @@ available.
 | v0.1.10 | v1.2 mid-development  | main            |                                                                                        |
 | v0.1.9  | v1.2 mid-development  | main            |                                                                                        |
 | v0.1.8  | v1.2 mid-development  | main            |                                                                                        |
+
+## What about using `github.com/hashicorp/vault` itself as a Go module?
+
+The previously-mentioned documentation at
+https://github.com/hashicorp/vault#importing-vault also states:
+
+> Note that this repository also contains Vault (the product), and as with most Go
+  projects, Vault uses Go modules to manage its dependencies. The mechanism to do
+  that is the [go.mod](https://github.com/hashicorp/vault/blob/main/go.mod) file.
+  As it happens, the presence of that file
+  also makes it theoretically possible to import Vault as a dependency into other
+  projects. Some other projects have made a practice of doing so in order to take
+  advantage of testing tooling that was developed for testing Vault itself. This
+  is not, and has never been, a supported way to use the Vault project. We aren't
+  likely to fix bugs relating to failure to import `github.com/hashicorp/vault`
+  into your project.
+
+The reason that people often run into difficulties when doing so, is that the
+main Vault repository makes use of `go.mod` `replace` directives to ensure that
+Vault itself always uses the libraries at the version present within the Git
+repository at the same commit, not their released versions. The actual versions
+of these libraries stated in Vault's top-level `go.mod` file do not apply when
+building Vault itself - only when making an unsupported dependency reference to
+`github.com/hashicorp/vault` - and as a result are not kept technically correct
+at all times. It is possible to work around this with some careful selection of
+which versions you require, but as stated, **it is an unsupported usage**.
+
+If you really want to do it anyway, then there is **only one way** to
+**ensure** you get versions of `github.com/hashicorp/vault` and
+`github.com/hashicorp/vault/sdk` that are compatible with each other.
+
+**You must use versions of both of these, from the same Git commit.**
+
+Here is a worked example of doing so, assuming you want to use the code from
+the Vault `v1.14.1` Git tag:
+
+```
+$ git ls-remote https://github.com/hashicorp/vault v1.14.1
+bf23fe8636b04d554c0fa35a756c75c2f59026c0        refs/tags/v1.14.1
+
+$ go get github.com/hashicorp/vault@bf23fe8636b04d554c0fa35a756c75c2f59026c0
+... many lines mentioning other dependencies omitted for clarity...
+go: added github.com/hashicorp/vault v1.14.1
+... many lines mentioning other dependencies omitted for clarity...
+
+$ go get github.com/hashicorp/vault/sdk@bf23fe8636b04d554c0fa35a756c75c2f59026c0
+go: upgraded github.com/hashicorp/vault/sdk v0.9.2-0.20230530190758-08ee474850e0 => v0.9.2-0.20230721171514-bf23fe8636b0
+```
+
+You can select an sdk tag, such as `sdk/v0.9.2`, rather than a Vault tag, as
+the basis for finding the Git commit if you prefer - but either way, you will
+be using a pseudo-version (not an actual tag) for at least one of the modules,
+as the current release engineering processes never place tags for both Vault
+itself, and the sdk, on the same commit.
