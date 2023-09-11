@@ -50,31 +50,32 @@ which really ought to be in the `sdk` module - this is in `plugin_helpers.go`.
 
 It claims to provide a stable API and for the most part succeeds.
 
-| API    | Vault timeline        | Branch          | Notes                                                          |
-|--------|-----------------------|-----------------|----------------------------------------------------------------|
-| v1.9.2 | v1.14 branch point    | main            |                                                                |
-| v1.9.1 | v1.14 mid-development | main            |                                                                |
-| v1.9.0 | v1.13 branch point    | main            | No longer depends on `sdk` - much reduced dependency footprint |
-| v1.8.3 | v1.13 mid-development | main            |                                                                |
-| v1.8.2 | v1.13 mid-development | main            |                                                                |
-| v1.8.1 | v1.13 mid-development | main            |                                                                |
-| v1.8.0 | v1.12 branch point    | main            |                                                                |
-| v1.7.2 | v1.12 mid-development | main            |                                                                |
-| v1.7.1 | v1.12 mid-development | main            |                                                                |
-| v1.7.0 | v1.12 mid-development | main            |                                                                |
-| v1.6.0 | v1.11 branch point    | main            |                                                                |
-| v1.5.0 | v1.11 mid-development | main            |                                                                |
-| v1.4.1 | v1.10 branch point    | main (detached) |                                                                |
-| v1.4.0 | v1.10 mid-development | main (detached) |                                                                |
-| v1.3.1 | v1.10 mid-development | main            |                                                                |
-| v1.3.0 | v1.9 branch point     | main (detached) |                                                                |
-| v1.2.0 | v1.9 mid-development  | main            |                                                                |
-| v1.1.1 | v1.8 branch point     | main            |                                                                |
-| v1.1.0 | v1.7 release branch   | release/1.7.x   |                                                                |
-| v1.0.4 | v1.2 mid-development  | main            |                                                                |
-| v1.0.3 | v1.2 mid-development  | main            |                                                                |
-| v1.0.2 | v1.2 mid-development  | main            |                                                                |
-| v1.0.1 | v1.2 mid-development  | main            |                                                                |
+| API     | Vault timeline        | Branch          | Notes                                                          |
+|---------|-----------------------|-----------------|----------------------------------------------------------------|
+| v1.10.0 | v1.15 branch point    | main            |                                                                |
+| v1.9.2  | v1.14 branch point    | main            |                                                                |
+| v1.9.1  | v1.14 mid-development | main            |                                                                |
+| v1.9.0  | v1.13 branch point    | main            | No longer depends on `sdk` - much reduced dependency footprint |
+| v1.8.3  | v1.13 mid-development | main            |                                                                |
+| v1.8.2  | v1.13 mid-development | main            |                                                                |
+| v1.8.1  | v1.13 mid-development | main            |                                                                |
+| v1.8.0  | v1.12 branch point    | main            |                                                                |
+| v1.7.2  | v1.12 mid-development | main            |                                                                |
+| v1.7.1  | v1.12 mid-development | main            |                                                                |
+| v1.7.0  | v1.12 mid-development | main            |                                                                |
+| v1.6.0  | v1.11 branch point    | main            |                                                                |
+| v1.5.0  | v1.11 mid-development | main            |                                                                |
+| v1.4.1  | v1.10 branch point    | main (detached) |                                                                |
+| v1.4.0  | v1.10 mid-development | main (detached) |                                                                |
+| v1.3.1  | v1.10 mid-development | main            |                                                                |
+| v1.3.0  | v1.9 branch point     | main (detached) |                                                                |
+| v1.2.0  | v1.9 mid-development  | main            |                                                                |
+| v1.1.1  | v1.8 branch point     | main            |                                                                |
+| v1.1.0  | v1.7 release branch   | release/1.7.x   |                                                                |
+| v1.0.4  | v1.2 mid-development  | main            |                                                                |
+| v1.0.3  | v1.2 mid-development  | main            |                                                                |
+| v1.0.2  | v1.2 mid-development  | main            |                                                                |
+| v1.0.1  | v1.2 mid-development  | main            |                                                                |
 
 ### Incompatibilities introduced by version, as detected by Go apidiff
 
@@ -127,16 +128,17 @@ There are 7 of them:
 The version numbers of these 7 libraries are mostly but not always managed in
 sync with each other.
 
-| api/auth/ libraries                | Version | `api` version | Vault timeline        | Contents                     |
-|------------------------------------|---------|---------------|-----------------------|------------------------------|
-| *                                  | v0.4.1  | v1.9.2        | v1.14 branch point    | No material changes          |
-| *                                  | v0.4.0  | v1.9.0        | v1.13 branch point    | No material changes          |
-| *                                  | v0.3.0  | v1.8.0        | v1.12 branch point    | No material changes          |
-| *                                  | v0.2.0  | v1.7.2        | v1.12 mid-development | Some fixes                   |
-| ldap                               | v0.1.0  | v1.3.1        | v1.10 mid-development | Initial version (2022-02-04) |
-| approle                            | v0.1.1  | v1.3.0        | v1.10 mid-development | Some fixes                   |
-| azure, gcp                         | v0.1.0  | v1.3.0        | v1.10 mid-development | Initial version (2021-11-12) |
-| approle, aws, kubernetes, userpass | v0.1.0  | v1.3.0        | v1.10 mid-development | Initial version (2021-11-09) |
+| api/auth/ libraries                | Version | `api` version | Vault timeline        | Contents                                                         |
+|------------------------------------|---------|---------------|-----------------------|------------------------------------------------------------------|
+| *                                  | v0.5.0  | v1.10.0       | v1.15 branch point    | aws: Support EC2 RSA2048 signatures; others: No material changes |
+| *                                  | v0.4.1  | v1.9.2        | v1.14 branch point    | No material changes                                              |
+| *                                  | v0.4.0  | v1.9.0        | v1.13 branch point    | No material changes                                              |
+| *                                  | v0.3.0  | v1.8.0        | v1.12 branch point    | No material changes                                              |
+| *                                  | v0.2.0  | v1.7.2        | v1.12 mid-development | Some fixes                                                       |
+| ldap                               | v0.1.0  | v1.3.1        | v1.10 mid-development | Initial version (2022-02-04)                                     |
+| approle                            | v0.1.1  | v1.3.0        | v1.10 mid-development | Some fixes                                                       |
+| azure, gcp                         | v0.1.0  | v1.3.0        | v1.10 mid-development | Initial version (2021-11-12)                                     |
+| approle, aws, kubernetes, userpass | v0.1.0  | v1.3.0        | v1.10 mid-development | Initial version (2021-11-09)                                     |
 
 Each `api/auth/` library depends on the base `api` library. The versions are
 unimportant, as thanks to how Go modules work, you can combine any `api/auth/`
@@ -163,6 +165,7 @@ available.
 
 | SDK     | Vault timeline        | Branch          | Notes                                                                                  |
 |---------|-----------------------|-----------------|----------------------------------------------------------------------------------------|
+| v0.10.0 | v1.15 branch point    | main            |                                                                                        |
 | v0.9.2  | v1.15 mid-development | main            |                                                                                        |
 | v0.9.1  | v1.14 branch point    | main            |                                                                                        |
 | v0.9.0  | v1.14 mid-development | main            |                                                                                        |
